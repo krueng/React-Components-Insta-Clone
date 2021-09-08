@@ -19,8 +19,10 @@ const App = () => {
   // This state is the source of truth for the data inside the app. You won't be needing dummyData anymore.
   // To make the search bar work (which is stretch) we'd need another state to hold the search term.
   const [searchTerm, setSearchTerm] = useState('');
+  const [liked, setLiked] = useState(0); //stretch, set state to prevent user from "liking" the same post more than once.
 
   const likePost = postId => {
+
     /*
       This function serves the purpose of increasing the number of likes by one, of the post with a given id.
 
@@ -32,8 +34,10 @@ const App = () => {
         - if the `id` of the post matches `postId`, return a new post object with the desired values (use the spread operator).
         - otherwise just return the post object unchanged.
      */
+    // let liked = 0;
     const updatedLikes = posts.map(post => {
-      if (post.id === postId) {
+      if (post.id === postId && liked !== postId) {
+        setLiked(postId);
         return { ...post, likes: post.likes + 1 }
       } else {
         return post;
